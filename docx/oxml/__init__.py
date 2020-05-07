@@ -25,7 +25,9 @@ def parse_xml(xml):
     parser is used, so custom element classes are produced for elements in
     *xml* that have them.
     """
-    root_element = etree.fromstring(xml, oxml_parser)
+    xml = str(xml, encoding="utf-8").replace('<w:sdt>', '').replace('</w:sdt>', '').replace('</w:sdtContent>', '').replace('<w:sdtContent>', '')
+    root_element = etree.fromstring(bytes(xml, encoding="utf8"), oxml_parser)
+    # root_element = etree.fromstring(xml, oxml_parser)
     return root_element
 
 
@@ -221,6 +223,10 @@ register_element_cls('w:webHidden',  CT_OnOff)
 
 from .text.paragraph import CT_P  # noqa
 register_element_cls('w:p', CT_P)
+
+from .structureddocumenttag import CT_Sdt, CT_sdtContent
+register_element_cls('w:sdt', CT_Sdt)
+register_element_cls('w:sdtContent', CT_sdtContent)
 
 from .text.parfmt import (  # noqa
     CT_Ind,

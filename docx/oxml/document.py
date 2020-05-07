@@ -30,6 +30,7 @@ class CT_Body(BaseOxmlElement):
     """
     p = ZeroOrMore('w:p', successors=('w:sectPr',))
     tbl = ZeroOrMore('w:tbl', successors=('w:sectPr',))
+    sdt = ZeroOrMore('w:sdt', successors=('w:sdtContent', ))
     sectPr = ZeroOrOne('w:sectPr', successors=())
 
     def add_section_break(self):
